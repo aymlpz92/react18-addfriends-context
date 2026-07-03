@@ -1,10 +1,12 @@
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import FriendContext from "../context/FriendContext";
 
 function User(props) {
   const { username, name, email } = props;
 
   // TODO replace with context
-  const { friends, setFriends } = props;
+  const { friends, setFriends } = useContext(FriendContext);
 
   function addFriend() {
     if (friends.includes(username)) {

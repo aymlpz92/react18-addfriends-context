@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./App.css";
 import FriendList from "./components/FriendList";
 import User from "./components/User";
+import FriendContext from "./context/FriendContext";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -17,20 +18,21 @@ function App() {
 
   return (
     <div className='App'>
-      <FriendList
+      <FriendContext.Provider value={{ friends, setFriends }}>
+        <FriendList
         /* TODO replace friends with context */
-        friends={friends}
-      />
-      <h2>Users :</h2>
-      {users.map((user) => (
-        <User
-          key={user.id}
-          {...user}
-          /* TODO replace friends and setFriends with context */
-          friends={friends}
-          setFriends={setFriends}
         />
-      ))}
+        <h2>Users :</h2>
+        {users.map((user) => (
+          <User
+            key={user.id}
+            {...user}
+            /* TODO replace friends and setFriends with context */
+          />
+        ))}
+
+      </FriendContext.Provider>
+      
     </div>
   );
 }
